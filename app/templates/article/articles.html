@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}
+    {{ title }}
+{% endblock %}
+{% block body %}
+<div class="content-section">
+ <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <div class="center">
+            <h1>List Articles</h1>
+            <br/>
+            {% with messages=get_flashed_messages() %}
+                {% if messages %}
+                <ul class="flashes">
+                {% for message in messages %}
+                <li>{{ message|safe }}</li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+            {% endwith %}
+            <ul>
+                {% for article in articles %}
+                    <li>{{ article.get('title') }} 
+                    | <a href="{{ url_for('article.edit', article_id=article.get('article_id')) }}">edit</a> 
+                    | <a href="{{ url_for('article.delete', article_id=article.get('article_id')) }}">delete</a>
+                    </li>
+                {% else %}
+                No Articles found
+                {% endfor %}
+            </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
